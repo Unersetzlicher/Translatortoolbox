@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document Processing Status</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            text-align: center;
+            padding: 50px;
+        }
+        h1 {
+            color: #333;
+        }
+        .success-message {
+            color: #4CAF50; /* Green color */
+            font-size: 1.2em;
+        }
+        .error-message {
+            color: red;
+            font-size: 1.2em;
+        }
+        a {
+            display: inline-block;
+            background-color: #008CBA; /* Blue color */
+            color: white;
+            padding: 10px 20px;
+            margin: 10px 0;
+            border-radius: 5px;
+            text-decoration: none;
+            font-size: 1.2em;
+        }
+        a:hover {
+            background-color: #007B9E;
+        }
+    </style>
+</head>
+<body>
+    <h1>Document Processing Status</h1>
+
+    {% if download_path %}
+        <p class="success-message">Your document has been processed successfully.</p>
+        <a href="{% url 'download_file' %}?file_path={{ download_path }}">Download Formatted Document</a>
+    {% else %}
+        <p class="error-message">Sorry, there was an error in processing your document.</p>
+    {% endif %}
+
+    <br>
+    <a href="{% url 'home' %}">Return to Home</a>
+</body>
+</html>

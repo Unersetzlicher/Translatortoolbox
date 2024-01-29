@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>String Processing Result</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #e7eff6;
+            text-align: center;
+            padding-top: 50px;
+        }
+        .container {
+            width: 100%;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+            border-radius: 10px;
+        }
+        textarea {
+            width: 100%;
+            height: 200px;
+            padding: 15px;
+            margin-top: 20px;
+            margin-bottom: 20px;
+            border: 1px solid #bfcde0;
+            border-radius: 5px;
+            font-size: 16px;
+            box-sizing: border-box;
+            resize: vertical;
+        }
+        .button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            margin: 10px 0;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            text-decoration: none;
+            display: inline-block;
+        }
+        .button:hover {
+            background-color: #45a049;
+        }
+        .button-secondary {
+            background-color: #f0ad4e;
+        }
+        .button-secondary:hover {
+            background-color: #ec971f;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Nominative Case</h2>
+        <textarea id="processedString0" readonly>{{ processed_string_0 }}</textarea>
+        <button onclick="copyToClipboard('processedString0')" class="button">Copy Nominative Case to Clipboard</button>
+        <br><br> <!-- Add some spacing -->
+
+        <h2>Genitive Case</h2>
+        <textarea id="processedString1" readonly>{{ processed_string_1 }}</textarea>
+        <button onclick="copyToClipboard('processedString1')" class="button">Copy Genitive Case to Clipboard</button>
+        <br><br> <!-- Add some spacing -->
+
+        <a href="{% url 'process_string' %}" class="button button-secondary">Process Another List</a>
+    </div>
+
+    <script>
+        function copyToClipboard(textAreaId) {
+            var copyText = document.getElementById(textAreaId);
+            copyText.select();
+            navigator.clipboard.writeText(copyText.value)
+                .then(() => {
+                    alert('Text copied to clipboard');
+                })
+                .catch(err => {
+                    alert('Failed to copy text: ' + err);
+                });
+        }
+    </script>
+</body>
+</html>
