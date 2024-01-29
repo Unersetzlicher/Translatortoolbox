@@ -1,7 +1,7 @@
 # string_processor/views.py
 from django.shortcuts import render
 from .forms import StringForm
-
+import re
 
 
 def process_string(request):
@@ -70,7 +70,9 @@ def sanitize_and_process(input_string):
     sanitized_string = sanitized_string.rsplit(' and', 1)
     sanitized_string = ','.join(sanitized_string)
 
-    countries = sanitized_string.split(',')
+    # Split the countries
+    countries = re.split(r'[;,]\s*', sanitized_string)
+
     translated_countries_0 = []
     translated_countries_1 = []
 
@@ -95,7 +97,7 @@ def sanitize_and_process(input_string):
         to_return_0 = ', '.join(translated_countries_0[:-1]) + " и " + translated_countries_0[-1] + last_character
         to_return_1 = ', '.join(translated_countries_1[:-1]) + " и " + translated_countries_1[-1] + last_character
     else:
-        to_return_0 = "".join(translated_countries_0)
-        to_return_1 = "".join(translated_countries_1)
+        to_return_0 = "".join(translated_countries_0) + last_character
+        to_return_1 = "".join(translated_countries_1) + last_character
 
     return to_return_0, to_return_1
