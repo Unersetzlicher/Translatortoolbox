@@ -42,9 +42,9 @@ def sanitize_and_process(input_string):
     # Sanitize the string
     sanitized_string = input_string.strip()
 
-    # Remove the last "." if any
-    last_character = ""
-    if sanitized_string.endswith('.') or sanitized_string.endswith(',') or sanitized_string.endswith(';'):
+    # Remove the last "." "," or ";" if any
+    last_character = ''
+    if sanitized_string[-1] in {'.', ',', ';'}:
         last_character = sanitized_string[-1]
         sanitized_string = sanitized_string[:-1]
 
