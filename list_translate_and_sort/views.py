@@ -67,7 +67,7 @@ def sanitize_and_process(input_string):
         sanitized_string = sanitized_string.replace(old, new)
 
     # Replace the last "and" with ","
-    sanitized_string = sanitized_string.rsplit('and', 1)
+    sanitized_string = sanitized_string.rsplit(' and', 1)
     sanitized_string = ','.join(sanitized_string)
 
     countries = sanitized_string.split(',')
@@ -91,7 +91,11 @@ def sanitize_and_process(input_string):
     translated_countries_1.sort()
 
     # Join the lists into strings
-    to_return_0 = ', '.join(translated_countries_0[:-1]) + " и " + translated_countries_0[-1] + last_character
-    to_return_1 = ', '.join(translated_countries_1[:-1]) + " и " + translated_countries_1[-1] + last_character
+    if len(translated_countries_0) > 1:
+        to_return_0 = ', '.join(translated_countries_0[:-1]) + " и " + translated_countries_0[-1] + last_character
+        to_return_1 = ', '.join(translated_countries_1[:-1]) + " и " + translated_countries_1[-1] + last_character
+    else:
+        to_return_0 = "".join(translated_countries_0)
+        to_return_1 = "".join(translated_countries_1)
 
     return to_return_0, to_return_1
