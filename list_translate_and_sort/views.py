@@ -91,7 +91,7 @@ def sanitize_and_process(input_string):
     translated_countries_1.sort()
 
     # Join the lists into strings
-    to_return_0 = ', '.join(translated_countries_0[:-1]) + " and " + translated_countries_0[-1] + last_character
-    to_return_1 = ', '.join(translated_countries_1[:-1]) + " and " + translated_countries_1[-1] + last_character
+    to_return_0 = ', '.join(translated_countries_0[:-1]) + " и " + translated_countries_0[-1] + last_character
+    to_return_1 = ', '.join(translated_countries_1[:-1]) + " и " + translated_countries_1[-1] + last_character
 
     return to_return_0, to_return_1
