@@ -1,1 +1,1 @@
-web: gunicorn trastoolbox.wsgi
+web: gunicorn trastoolbox_new.wsgi
