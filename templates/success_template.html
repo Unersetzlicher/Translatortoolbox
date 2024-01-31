@@ -13,7 +13,7 @@
         h1 {
             color: #333;
         }
-        .success-message {
+        .success-message, .word-count-warning {
             color: #4CAF50; /* Green color */
             font-size: 1.2em;
         }
@@ -40,7 +40,10 @@
     <h1>Document Processing Status</h1>
 
     {% if download_path %}
-        <p class="success-message">Your document has been processed successfully.</p>
+        <p class="success-message">Your document has been processed successfully. The word count does match. Please note that footnotes are currently left as they are.</p>
+        {% if not word_count_match %}
+            <p class="word-count-warning" style="color: red;">Warning: Word count does not match (Before: {{ words_before }}, After: {{ words_after }})</p>
+        {% endif %}
         <a href="{% url 'download_file' %}?file_path={{ download_path }}">Download Formatted Document</a>
     {% else %}
         <p class="error-message">Sorry, there was an error in processing your document.</p>

@@ -28,3 +28,37 @@ def copy_formatting(original_path, translated_path, output_path):
             apply_text_formatting(orig_run, trans_run)
 
     translated_doc.save(output_path)
+
+
+from xml.etree import ElementTree as ET
+
+def count_words_in_text(text):
+    # Counts the words in a given text segment
+    return len(text.split())
+
+
+def count_words_in_docx(file_path):
+    doc = Document(file_path)
+    word_count = 0
+
+    # Count words in the main document
+    for para in doc.paragraphs:
+        word_count += count_words_in_text(para.text)
+
+    # Count words in headers and footers
+    for section in doc.sections:
+        for header in section.header.paragraphs:
+            word_count += count_words_in_text(header.text)
+        for footer in section.footer.paragraphs:
+            word_count += count_words_in_text(footer.text)
+
+    # Count words in tables
+    for table in doc.tables:
+        for row in table.rows:
+            for cell in row.cells:
+                for para in cell.paragraphs:
+                    word_count += count_words_in_text(para.text)
+
+
+
+    return word_count

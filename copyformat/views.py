@@ -6,7 +6,7 @@ import tempfile
 import os
 from django.shortcuts import render, redirect
 from .forms import DocumentForm
-from .utils import copy_formatting
+from .utils import copy_formatting, count_words_in_docx
 
 
 def upload_file(request):
@@ -38,11 +38,23 @@ def upload_file(request):
             output_filename = 'formatted_translated_doc.docx'
             output_path = os.path.join(output_temp_dir, output_filename)
 
+            # Count words before formatting
+            words_before = count_words_in_docx(translated_temp_path)
+
             # Process the document
             copy_formatting(original_temp_path, translated_temp_path, output_path)
 
+            # Count words after formatting
+            words_after = count_words_in_docx(output_path)
+
             # Store the path in the session
             request.session['download_path'] = output_path
+
+            word_count_match = words_before == words_after
+            request.session['word_count_match'] = word_count_match
+            request.session['words_before'] = words_before
+            request.session['words_after'] = words_after
+
 
             # Optional: Store paths for cleanup later
             request.session['temp_paths'] = [original_temp_dir, translated_temp_dir, output_temp_dir]
@@ -76,6 +88,18 @@ def download_file(request):
     # Handle the case where the file does not exist
     return HttpResponse("File not found", status=404)
 
+
 def success_view(request):
     download_path = request.session.get('download_path')
-    return render(request, 'success_template.html', {'download_path': download_path})
+    word_count_match = request.session.get('word_count_match', False)
+    words_before = request.session.get('words_before', 0)
+    words_after = request.session.get('words_after', 0)
+
+    return render(request, 'success_template.html', {
+        'download_path': download_path,
+        'word_count_match': word_count_match,
+        'words_before': words_before,
+        'words_after': words_after
+    })
+
+
