@@ -17,20 +17,35 @@ def apply_paragraph_formatting(source_paragraph, target_paragraph):
     target_paragraph.paragraph_format.line_spacing = source_paragraph.paragraph_format.line_spacing
     target_paragraph.paragraph_format.left_indent = source_paragraph.paragraph_format.left_indent
 
+def copy_header_footer_formatting(original_doc, translated_doc):
+    for orig_section, trans_section in zip(original_doc.sections, translated_doc.sections):
+        # Copy header formatting
+        for orig_header, trans_header in zip(orig_section.header.paragraphs, trans_section.header.paragraphs):
+            apply_paragraph_formatting(orig_header, trans_header)
+            for orig_run, trans_run in zip(orig_header.runs, trans_header.runs):
+                apply_text_formatting(orig_run, trans_run)
+
+        # Copy footer formatting
+        for orig_footer, trans_footer in zip(orig_section.footer.paragraphs, trans_section.footer.paragraphs):
+            apply_paragraph_formatting(orig_footer, trans_footer)
+            for orig_run, trans_run in zip(orig_footer.runs, trans_footer.runs):
+                apply_text_formatting(orig_run, trans_run)
+
 def copy_formatting(original_path, translated_path, output_path):
     original_doc = Document(original_path)
     translated_doc = Document(translated_path)
 
-    # Copying formatting for main document content
+    # Copy formatting for main document content
     for orig_para, trans_para in zip(original_doc.paragraphs, translated_doc.paragraphs):
         apply_paragraph_formatting(orig_para, trans_para)
         for orig_run, trans_run in zip(orig_para.runs, trans_para.runs):
             apply_text_formatting(orig_run, trans_run)
 
+    # Copy formatting for headers and footers
+    copy_header_footer_formatting(original_doc, translated_doc)
+
     translated_doc.save(output_path)
 
-
-from xml.etree import ElementTree as ET
 
 def count_words_in_text(text):
     # Counts the words in a given text segment

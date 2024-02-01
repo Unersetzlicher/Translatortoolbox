@@ -33,9 +33,15 @@ def upload_file(request):
                 for chunk in translated_file.chunks():
                     f.write(chunk)
 
+            # Original file name without extension
+            base_name = os.path.splitext(translated_file.name)[0]
+
+
+
+
             # Output path for the formatted document
             output_temp_dir = tempfile.mkdtemp()
-            output_filename = 'formatted_translated_doc.docx'
+            output_filename = f'{base_name}_formatted.docx'
             output_path = os.path.join(output_temp_dir, output_filename)
 
             # Count words before formatting
