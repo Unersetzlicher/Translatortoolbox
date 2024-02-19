@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Sort List of Countries</title>
+    <style>
+        /* Global box-sizing to include padding and borders */
+        *, *:before, *:after {
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #e7eff6;
+            text-align: center;
+            padding: 50px 0;
+            color: #333;
+        }
+        .container {
+            width: 100%;
+            max-width: 400px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+            border-radius: 10px;
+        }
+        h2 {
+            margin-bottom: 20px;
+            color: #333;
+        }
+        .form-field {
+            margin-bottom: 20px;
+            text-align: left;
+        }
+        .form-field label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 600;
+        }
+        .form-field input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #bfcde0;
+            border-radius: 5px;
+            font-size: 16px;
+            /* Ensure padding and border are within the element's width */
+            box-sizing: border-box;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            background-color: #4caf50;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #43a047;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Sort a List of Countries:</h2>
+        <form method="post">
+            {% csrf_token %}
+            <div class="form-field">
+                <label for="{{ form.input_string.id_for_label }}">Enter your list:</label>
+                <input type="text" name="{{ form.input_string.html_name }}" id="{{ form.input_string.id_for_label }}"
+               class="{{ form.input_string.css_classes }}" value="{{ form.input_string.value|default_if_none:'' }}" placeholder="E.g., France, Germany, Italy">
+            </div>
+            <button type="submit">Sort List</button>
+        </form>
+    </div>
+</body>
+</html>

@@ -23,5 +23,6 @@ urlpatterns = [
     path('', home, name='home'),
     path('list_translate_and_sort/', include('list_translate_and_sort.urls')),
     path('copyformat/', include('copyformat.urls')),
+    path('sort_translated/', include('sort_translated.urls')),
     # ... other paths ...
 ]

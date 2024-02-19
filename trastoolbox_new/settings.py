@@ -35,7 +35,8 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "copyformat.apps.CopyformatConfig",
-    "list_translate_and_sort"
+    "list_translate_and_sort",
+    'sort_translated'
 ]
 
 MIDDLEWARE = [
