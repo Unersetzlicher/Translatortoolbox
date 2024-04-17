@@ -1,6 +1,7 @@
+
 asgiref==3.7.2
 dj-database-url==2.1.0
-Django==5.0.2
+Django==5.0.4
 django-on-heroku==1.1.2
 gunicorn>=22.0.0
 langdetect==1.0.9
